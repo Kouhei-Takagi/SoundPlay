@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<script>
+
+function sound() {
+	const height = document.getElementById("soundHeight");
+	const sec = document.getElementById("soundLength");
+	var st1 = document.getElementById("soundType1");
+	var st2 = document.getElementById("soundType2");
+	var st3 = document.getElementById("soundType3");
+	var soundType = "square";	
+		
+	if (st1.checked){
+		soundType = "square";
+	}
+	if (st2.checked){
+		soundType = "triangle";
+	}
+	if (st3.checked){
+		soundType = "sine";
+	}	
+	
+	const ctx = new AudioContext();
+	const osc = ctx.createOscillator();
+	osc.type = soundType;
+	osc.frequency.value = height.value;
+	osc.connect(ctx.destination);
+	osc.start();
+	osc.stop(sec.value);
+}
+
+</script>
+
+</head>
+
+<body>
+Sound Height
+<input type="range" id="soundHeight" min="200", max="7500" step="100" value="3500">
+<br>
+Sound Length
+<input type="range" id="soundLength" min="0.1" max="1.0" step="0.1" value="0.3">
+<br>
+
+<p>Sound type
+<input type="radio" name="soundType" id="soundType1" value="square" checked>Square
+<input type="radio" name="soundType" id="soundType2" value="triangle">Triangle
+<input type="radio" name="soundType" id="soundType3" value="sine">Sine
+</p>
+
+<br>
+<button onclick='sound();'>Play Sound</button>
+
+
+</body>
+</html>
